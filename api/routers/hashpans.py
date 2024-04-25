@@ -15,6 +15,7 @@ from api.const import (
     TOTAL_PAGES_KEY,
     ALL_OBJECTS_KEY,
     HASHPAN_FIELD_KEY,
+    CARD_MASK_VALUE,
 )
 from api.schemas.hashpans import CardDataResponseModel
 from api.utils import templates, get_async
@@ -72,7 +73,9 @@ async def find_blacklisted_hashpans(
     last_four_numbers: Annotated[str, Form()],
     hashpans: Annotated[list, Depends(request_all_hashpans)],
 ):
-    card_mask = first_six_numbers + "XXXXXX" + last_four_numbers
+    assert len(first_six_numbers) == 6
+    assert len(last_four_numbers) == 4
+    card_mask = first_six_numbers + CARD_MASK_VALUE + last_four_numbers
     card_info = requests.get(
         HASHPAN_INFO_URL.format(card_mask=card_mask), verify=False
     )

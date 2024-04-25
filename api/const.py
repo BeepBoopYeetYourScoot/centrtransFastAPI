@@ -4,3 +4,4 @@ BLACKLISTED_PANS_URL = "https://securepayments.sberbank.ru/tkp_Barnaul/lists/bla
 TOTAL_PAGES_KEY = "totalPages"
 ALL_OBJECTS_KEY = "listValues"
 HASHPAN_FIELD_KEY = "a"
+CARD_MASK_VALUE = "XXXXXX"
