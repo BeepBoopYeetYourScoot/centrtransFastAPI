@@ -8,20 +8,28 @@ from pydantic import ValidationError
 from starlette.requests import Request
 from starlette.responses import HTMLResponse
 
-from api.const import BLACKLISTED_PANS_URL, MAX_PAGE_SIZE, HASHPAN_INFO_URL, TOTAL_PAGES_KEY, ALL_OBJECTS_KEY, \
-    HASHPAN_FIELD_KEY
+from api.const import (
+    BLACKLISTED_PANS_URL,
+    MAX_PAGE_SIZE,
+    HASHPAN_INFO_URL,
+    TOTAL_PAGES_KEY,
+    ALL_OBJECTS_KEY,
+    HASHPAN_FIELD_KEY,
+)
 from api.schemas.hashpans import CardDataResponseModel
 from api.utils import templates, get_async
 
-hashpan_router = APIRouter(prefix="/hashpan")
+HASHPAN_PREFIX = "/hashpan"
+
+hashpan_router = APIRouter(prefix=HASHPAN_PREFIX)
 
 
-@hashpan_router.get("/", response_class=HTMLResponse)
+@hashpan_router.get("/")
 async def main_page(request: Request):
     return templates.TemplateResponse(request=request, name="main.html")
 
 
-@hashpan_router.get("/form", response_class=HTMLResponse)
+@hashpan_router.get("/form")
 async def hashpan_view(request: Request):
     return templates.TemplateResponse(request=request, name="card_orders.html")
 
