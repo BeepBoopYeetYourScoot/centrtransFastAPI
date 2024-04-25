@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/base/head.html' %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body class="ms-5">
+    {% include "includes/base/header.html" %}
+    <div class="container-fluid">
+        <div class="row mt-4 d-flex justify-content-center">
+            {% include 'includes/sidebar/sidebar.html' %}
+
+            <div class="col-10 mb-5">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% include "includes/base/footer.html" %}
+    {% include "includes/base/scripts.html" %}
+
+</body>
+</html>
