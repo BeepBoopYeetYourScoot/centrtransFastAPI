@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+Поездки
+{% endblock title %}
+{% block content %}
+<table>
+    <tr>{% include 'includes/ekl_report_form.html' %}</tr>
+    <hr>
+    <tr>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>oper_code</th>
+                    <th>oper_div</th>
+                    <th>route_code</th>
+                    <th>tape_rn</th>
+                    <th>term</th>
+                    <th>ekl</th>
+                    <th>bkl</th>
+                    <th>status</th>
+                    <th>date_of</th>
+                    <th>ins_date</th>
+                </tr>
+            </thead>
+            {% for obj in reports %}
+            <tr>
+                <td>{{ obj.oper_code }}</td>
+                <td>{{ obj.oper_div }}</td>
+                <td>{{ obj.route_code }}</td>
+                <td>{{ obj.tape_rn }}</td>
+                <td>{{ obj.term }}</td>
+                <td>{{ obj.ekl }}</td>
+                <td>{{ obj.bkl }}</td>
+                <td>{{ obj.status }}</td>
+                <td>{{ obj.date_of }}</td>
+                <td>{{ obj.ins_date }}</td>
+            </tr>
+
+            {% endfor %}
+        </table>
+    </tr>
+</table>
+{% endblock content %}

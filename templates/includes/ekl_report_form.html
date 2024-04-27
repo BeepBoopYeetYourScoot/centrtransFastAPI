@@ -1,0 +1,27 @@
+<h3 align="center"> Список EKL карт</h3>
+
+<form action="{{url_for('get_ekl_info')}}" method="post" >
+    <div class="form-group">
+        <label for="start_from"> Начало </label>
+        <input
+                type="date"
+                id="start_from"
+                name="start_from"
+                required
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="end_on"> Конец </label>
+        <input
+                type="date"
+                id="end_on"
+                name="end_on"
+                required
+        >
+    </div>
+
+    <div class="form-group">
+        <button type="submit">Отправить</button>
+    </div>
+</form>
