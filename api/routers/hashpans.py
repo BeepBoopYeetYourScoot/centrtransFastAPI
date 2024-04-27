@@ -25,11 +25,6 @@ HASHPAN_PREFIX = "/hashpan"
 hashpan_router = APIRouter(prefix=HASHPAN_PREFIX)
 
 
-@hashpan_router.get("/")
-async def main_page(request: Request):
-    return templates.TemplateResponse(request=request, name="main.html")
-
-
 @hashpan_router.get("/form")
 async def hashpan_view(request: Request):
     return templates.TemplateResponse(request=request, name="card_orders.html")

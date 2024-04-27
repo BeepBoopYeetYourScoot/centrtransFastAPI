@@ -21,7 +21,3 @@ class ShiftEndInfo(Base):
 
     def __repr__(self):
         return f"<ShiftEndInfo(id={self.id} route_code={self.route_code} ekl={self.ekl})>"
-
-
-if __name__ == "__main__":
-    Base.metadata.create_all(engine)
