@@ -45,13 +45,17 @@ async def request_all_hashpans():
         for i in range(1, zero_page_dict[TOTAL_PAGES_KEY])
     ]
     coros = map(get_async, pages_to_request)
-    pans = await asyncio.gather(*coros)
+    pans = await asyncio.gather(*coros, return_exceptions=True)
     loguru.logger.debug(f"{pans=}")
+    exceptions = [p for p in pans if isinstance(p, Exception)]
 
     for pan_page in pans:
         page_dict = pan_page.json()
         values = [obj[HASHPAN_FIELD_KEY] for obj in page_dict[ALL_OBJECTS_KEY]]
         hashpans.extend(values)
+
+    if exceptions:
+        raise ConnectionError(exceptions)
 
     loguru.logger.debug(f"{len(hashpans)=}")
     return set(hashpans)
@@ -62,7 +66,9 @@ async def get_zero_page_hashpans():
         BLACKLISTED_PANS_URL.format(max_size=MAX_PAGE_SIZE, page_num=0),
     )
     zero_page_dict = zero_page.json()
-    zero_page_values = [obj["a"] for obj in zero_page_dict["listValues"]]
+    zero_page_values = [
+        obj[HASHPAN_FIELD_KEY] for obj in zero_page_dict[ALL_OBJECTS_KEY]
+    ]
     return zero_page_dict, zero_page_values
 
 
@@ -71,7 +77,7 @@ async def find_blacklisted_hashpans(
     request: Request,
     first_six_numbers: Annotated[str, Form()],
     last_four_numbers: Annotated[str, Form()],
-    hashpans: Annotated[list, Depends(request_all_hashpans)],
+    hashpans: Annotated[set, Depends(request_all_hashpans)],
 ):
     assert len(first_six_numbers) == 6
     assert len(last_four_numbers) == 4
